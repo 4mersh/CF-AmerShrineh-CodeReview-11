@@ -66,6 +66,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <?php require_once "components/bootstrap.php"; ?>
     <title>Hello <?= $data["fname"] ?></title>
 </head>
@@ -99,18 +105,65 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>
+
 <div class="container">
+<div class="text-center mt-5">
+  <h1>Search</h1>
+</div>
+  <div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="search">
+      <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>name</th>
+          <th>description</th>
+          <th>hobbies</th>
+          <th>size</th>
+          <th>image</th>
+        </tr>
+      </thead>
+
+      <div class="mt-5 mx-5">
+        <img src="image/dog.jpg" class="img-fluid" alt="..."> 
+    </div>
+
+      <tbody id="output">
+      </tbody>
+    </table>
+    </div>
+    <div class="col-sm-3">
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#search").keypress(function(){
+      $.ajax({
+        type:'POST',
+        url:'search2.php',
+        data:{
+          name:$("#search").val(),
+        },
+        success:function(data){
+          $("#output").html(data);
+        }
+      });
+    });
+  });
+</script>
+
+<div class="container mt-5 mb-5">
   <div class="row row-cols-4 mt-5 x-grid gap-3">
            <?= $body;?> 
   </div>
 </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
