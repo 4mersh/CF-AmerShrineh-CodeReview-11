@@ -10,15 +10,18 @@ if(!isset($_SESSION["adm"]) && !isset($_SESSION["user"]) && !isset($_SESSION["su
 
 if(isset($_SESSION["user"])){
     header("Location: home.php");
-    exit;
 }
 
-$sql = "SELECT * FROM users WHERE id = {$_SESSION["adm"]}";
+if(isset($_SESSION["superA"])){
+    header("Location: super.php");
+
+$sql = "SELECT * FROM users WHERE id = {$_SESSION['adm']}";
 
 $result = mysqli_query($conn, $sql);
 
-$data = mysqli_fetch_assoc($result);
 
+$data = mysqli_fetch_assoc($result);
+}
 $sql2 = "SELECT * FROM users WHERE status = 'user'";
     $result2 = mysqli_query($conn, $sql2);
 

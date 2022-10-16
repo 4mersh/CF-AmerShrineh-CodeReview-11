@@ -54,7 +54,11 @@
                 if($data["status"] == "user"){
                     $_SESSION["user"] = $data["id"];
                     header("location: home.php");
-                }else {
+                }elseif($data["status"] == "superA"){
+                    $_SESSION["superA"] = $data["id"];
+                    header("location: super.php");
+                }
+                else {
                     $_SESSION["adm"]= $data["id"];
                     header("Location: dashboard.php");
                 }

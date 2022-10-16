@@ -10,12 +10,10 @@ if(!isset($_SESSION["adm"]) && !isset($_SESSION["user"]) && !isset($_SESSION["su
 
 if(isset($_SESSION["user"])){
     header("Location: home.php");
-    exit;
 }
 
 if(isset($_SESSION["adm"])){
     header("Location: dashboard.php");
-    exit;
 }
 
 $sql = "SELECT * FROM users WHERE id = {$_SESSION["superA"]}";
@@ -29,17 +27,32 @@ $sql2 = "SELECT * FROM users WHERE status = 'user'";
 
     $text = "";
 
-    while($row = mysqli_fetch_assoc($result2)){
-        $text.= "<p>{$row["fname"]} {$row["lname"]} |  <a href='update.php?id={$row["id"]}'>Update</a> // <a href='delete.php?id={$row["id"]}'>Delete</a></p>";             
-}
-
-$sql3 = "SELECT * FROM users WHERE status = 'adm'";
+    $sql3 = "SELECT * FROM users WHERE status = 'adm'";
     $result3 = mysqli_query($conn, $sql3);
 
+    $text1 = "";
+
+    while($row = mysqli_fetch_assoc($result2)){
+        $text.= "<td>" .$row['fname']."</td>
+        <td>" .$row['lname']."</td>
+        <td>  <a href='update.php?id={$row["id"]}'><button class='btn btn-primary'type='button' >Update</button></a> |  <a href='delete.php?id={$row["id"]}'><button class='btn btn-danger'type='button' >Delete</button></a></td>
+       ";            
+}
+
+
+$text1 = "";
 
     while($row = mysqli_fetch_assoc($result3)){
-        $text.= "<p>{$row["fname"]} {$row["lname"]} |  <a href='update.php?id={$row["id"]}'>Update</a> // <a href='delete.php?id={$row["id"]}'>Delete</a></p>";
+        $text.= "<td>" .$row['fname']."</td>
+        <td>" .$row['lname']."</td>
+        <td>  <a href='update.php?id={$row["id"]}'><button class='btn btn-primary'type='button' >Update</button></a> |  <a href='delete.php?id={$row["id"]}'><button class='btn btn-danger'type='button' >Delete</button></a></td>
+       ";
     }
+
+   
+  
+  
+
 ?>
     
    
@@ -67,13 +80,29 @@ $sql3 = "SELECT * FROM users WHERE status = 'adm'";
   </div>
 </nav>
 
+
 <div class="container">
-  <h1>Users Table</h1>
-  <hr>
-   <?= 
-   $text 
-   ?>
+
+<div class="manageProduct w-75 mt-3">    
+            <p class='h2'>Users Table</p>
+            <table class='table table-striped'>
+                <thead class='table-success'>
+                    <tr>
+                        <th>fname</th>
+                        <th>lname</th> 
+                    </tr>
+                </thead>
+                <text>
+                    <?= $text;?>
+                </text>
+                <text>
+                    <?= $text1;?>
+                </text>
+                
+            </table>
+        </div>
 </div>
+
 
 <style>
   body{background-color: lightgray;}

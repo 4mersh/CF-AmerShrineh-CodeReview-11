@@ -10,6 +10,7 @@ if(mysqli_num_rows($result)>0){
                   <td>".$row['description']."</td>
                   <td>".$row['hobbies']."</td>
                   <td>".$row['size']."</td>
+                  <td>".$row['image']."</td>
                 </tr>";
     }
 }
